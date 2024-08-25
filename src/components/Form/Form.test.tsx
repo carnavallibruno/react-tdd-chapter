@@ -1,22 +1,27 @@
 import { render, fireEvent } from "@testing-library/react";
 import Form from "@/components/Form";
 
-it("renders Form component and submits correctly", () => {
-  const { getByTestId } = render(<Form />);
+describe("Form Component", () => {
+  it("renders Form component", () => {
+    const { getByTestId } = render(<Form />);
 
-  const nameInput = getByTestId("name-input");
-  const emailInput = getByTestId("email-input");
-  const submitButton = getByTestId("button");
+    const formElement = getByTestId("form");
+    expect(formElement).toBeInTheDocument();
+  });
 
-  expect(nameInput).toBeInTheDocument();
-  expect(emailInput).toBeInTheDocument();
-  expect(submitButton).toBeInTheDocument();
+  it("handles form submit event", () => {
+    const { getByTestId } = render(<Form />);
 
-  fireEvent.change(nameInput, { target: { value: "John Doe" } });
-  fireEvent.change(emailInput, { target: { value: "john.doe@example.com" } });
+    const nameInput = getByTestId("name-input");
+    const emailInput = getByTestId("email-input");
+    const submitButton = getByTestId("button");
 
-  expect(nameInput).toHaveValue("John Doe");
-  expect(emailInput).toHaveValue("john.doe@example.com");
+    fireEvent.change(nameInput, { target: { value: "John Doe" } });
+    fireEvent.change(emailInput, { target: { value: "john.doe@example.com" } });
 
-  fireEvent.click(submitButton);
+    expect(nameInput).toHaveValue("John Doe");
+    expect(emailInput).toHaveValue("john.doe@example.com");
+
+    fireEvent.click(submitButton);
+  });
 });

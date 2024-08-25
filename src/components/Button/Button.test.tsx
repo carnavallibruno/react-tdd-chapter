@@ -1,19 +1,25 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import Button from "@/components/Button";
 
-it("renders Button component and handles clicks", () => {
-  const handleClick = vi.fn();
+describe("Button Component", () => {
+  it("renders Button component", () => {
+    const { getByTestId } = render(<Button type="submit">Submit</Button>);
 
-  const { getByTestId } = render(
-    <Button type="submit" onClick={handleClick}>
-      Submit
-    </Button>
-  );
+    const buttonElement = getByTestId("button");
+    expect(buttonElement).toBeInTheDocument();
+  });
 
-  const buttonElement = getByTestId("button");
-  expect(buttonElement).toBeInTheDocument();
-  expect(buttonElement).toHaveAttribute("type", "submit");
+  it("handles click event", () => {
+    const handleClick = vi.fn();
 
-  fireEvent.click(buttonElement);
-  expect(handleClick).toHaveBeenCalledTimes(1);
+    const { getByTestId } = render(
+      <Button type="button" onClick={handleClick}>
+        Submit
+      </Button>
+    );
+
+    const buttonElement = getByTestId("button");
+    buttonElement.click();
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
 });

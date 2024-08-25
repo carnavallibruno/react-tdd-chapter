@@ -1,18 +1,22 @@
-import React, { useState } from "react"
-import Input from "../Input"
-import Button from "../Button"
+import React, { useState } from "react";
+import Input from "../Input";
+import Button from "../Button";
 
 export default function Form() {
-  const [name, setName] = useState<string>("")
-  const [email, setEmail] = useState<string>("")
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    console.log("Submitted:", { name, email })
-  }
+    event.preventDefault();
+    console.log("Submitted:", { name, email });
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-6"
+      data-testid="form"
+    >
       <Input
         id="name"
         label="Name"
@@ -30,5 +34,5 @@ export default function Form() {
       />
       <Button type="submit">Submit</Button>
     </form>
-  )
+  );
 }
