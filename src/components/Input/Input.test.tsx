@@ -1,18 +1,23 @@
-import { render } from "@testing-library/react";
-import Input from ".";
+import { render, fireEvent } from "@testing-library/react";
+import Input from "@/components/Input";
 
-describe("Input", () => {
-  it("should render input with label", () => {
-    const { getByLabelText } = render(<Input label="Username" />);
-    const input = getByLabelText(/username/i);
-    expect(input).toBeInTheDocument();
-  });
+it("renders Input component and handles changes", () => {
+  const handleChange = vi.fn();
 
-  it("should render input with custom class", () => {
-    const { getByLabelText } = render(
-      <Input label="Username" className="bg-red-500" />
-    );
-    const input = getByLabelText(/username/i);
-    expect(input).toHaveClass("bg-red-500");
-  });
-})
+  const { getByTestId } = render(
+    <Input
+      id="name"
+      label="Name"
+      value=""
+      onChange={handleChange}
+      placeholder="Enter your name"
+    />
+  );
+
+  const inputElement = getByTestId("name-input");
+  expect(inputElement).toBeInTheDocument();
+
+  fireEvent.change(inputElement, { target: { value: "Jane Doe" } });
+  expect(handleChange).toHaveBeenCalledTimes(1);
+  expect(handleChange).toHaveBeenCalledWith(expect.any(Object));
+});

@@ -1,11 +1,17 @@
 interface ButtonProps {
-  text: string;
+  type?: "button" | "submit" | "reset";
+  onClick?: () => void;
+  children: React.ReactNode;
 }
 
-export default function Button({ text, ...rest }: ButtonProps) {
+export default function Button({
+  type = "button",
+  children,
+  ...rest
+}: ButtonProps) {
   return (
-    <button className="w-full text-[18px]" {...rest}>
-      {text}
+    <button type={type} data-testid={"button"} {...rest}>
+      {children}
     </button>
   );
 }
