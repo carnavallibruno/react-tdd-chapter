@@ -35,8 +35,5 @@ export default defineConfig({
         'src/components/**/*.stories.{ts,tsx}'
       ],
     },
-  },
-  define: {
-    'import.meta.vitest': 'undefined',
   }
 })
